@@ -9,4 +9,6 @@ return [
  'edit'=>'Edit','delete'=>'Delete','out_of_stock'=>'Out of stock','save'=>'Save changes',
  'title'=>'Title','story'=>'Our story','mission'=>'Mission','vision'=>'Vision',
  'store_info'=>'Store details','phone'=>'Phone','email'=>'Email','address'=>'Address','hours'=>'Working hours','messages'=>'Customer messages',
+ 'logout' => 'Log out',
+ 'edit_profile' => 'Edit profile',
 ];

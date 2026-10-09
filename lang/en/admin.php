@@ -22,4 +22,7 @@ return [
     'confirm_delete' => 'Delete this product?',
     'add_images' => 'Add images',
     'no_results' => 'No products match your search.',
+    'whatsapp' => 'WhatsApp number',
+    'maps_url' => 'Google Maps link',
+    'settings_saved' => 'Settings saved.',
 ];

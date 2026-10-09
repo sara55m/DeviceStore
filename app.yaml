@@ -1,0 +1,11 @@
+kind: wasmer.io/App.v0
+name: devicestore
+owner: sara55m
+package: sha256:10e6438a32f580f65b59ddae132fc5f4e585b44fcd08e8c5bf6a448d336ccd8f
+
+
+volumes:
+  - name: booking-logs
+    mount: /app/storage/logs
+  - name: booking-public
+    mount: /app/storage/app/public

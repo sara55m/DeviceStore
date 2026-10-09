@@ -18,6 +18,7 @@ Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function () {
 
     Route::resource('products', ProductController::class)->except('show')->names('dashboard.products');
 
+    //contact-us and about pages
     Route::get('about', [SettingController::class, 'about'])->name('dashboard.about');
     Route::put('about', [SettingController::class, 'updateAbout'])->name('dashboard.about.update');
     Route::get('contact', [SettingController::class, 'contact'])->name('dashboard.contact');

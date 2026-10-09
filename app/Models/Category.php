@@ -12,4 +12,9 @@ class Category extends Model
     public array $translatable = ['name'];
 
     protected $fillable = ['name', 'slug', 'sort_order'];
+
+    public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }

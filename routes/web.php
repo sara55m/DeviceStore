@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\ProductController;
 
 Route::get('/', fn () => view('welcome'));
 
@@ -13,7 +14,7 @@ Route::get('lang/{locale}', function (string $locale) {
 
 Route::middleware(['auth', 'admin'])->prefix('dashboard')->group(function () {
     Route::view('/', 'dashboard.home')->name('dashboard');
-    Route::view('products', 'dashboard.products')->name('dashboard.products');
+    Route::resource('products', ProductController::class)->except('show')->names('dashboard.products');
     Route::view('about', 'dashboard.about')->name('dashboard.about');
     Route::view('contact', 'dashboard.contact')->name('dashboard.contact');
 });

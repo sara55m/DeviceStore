@@ -8,4 +8,4 @@ volumes:
   - name: store-logs
     mount: /app/storage/logs
   - name: store-public
-    mount: /app/storage/app/public
+    mount: /app/public/storage

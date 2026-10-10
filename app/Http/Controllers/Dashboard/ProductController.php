@@ -8,6 +8,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -118,8 +120,16 @@ class ProductController extends Controller
         // 2. add new uploads after the current last position
         $order = (int) $product->images()->max('sort_order');
         foreach ($request->file('images', []) as $file) {
+            $path = $file->store('products', 'public');
+
+            Log::info('Image storage check', [
+                'root' => config('filesystems.disks.public.root'),
+                'path' => $path,
+                'full_path' => Storage::disk('public')->path($path),
+                'exists' => Storage::disk('public')->exists($path),
+            ]);
             $product->images()->create([
-                'path' => $file->store('products', 'public'),
+                'path' => $path,
                 'sort_order' => ++$order,
             ]);
         }

@@ -16,17 +16,6 @@ jobs:
           - --force
         timeout: 5m
 
-  - name: link-storage
-    trigger: post-deployment
-    action:
-      execute:
-        command: php
-        cli_args:
-          - /app/artisan
-          - storage:link
-          - --force
-        timeout: 5m
-
   - name: clear-laravel-cache
     trigger: post-deployment
     action:

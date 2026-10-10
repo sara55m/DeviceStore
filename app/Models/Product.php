@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasOne};
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -38,6 +39,22 @@ class Product extends Model
     public function primaryImage(): HasOne
     {
         return $this->hasOne(ProductImage::class)->where('is_primary', true);
+    }
+
+    public function scopeSearch(Builder $query, ?string $term): Builder
+    {
+        if (! filled($term)) {
+            return $query;
+        }
+
+        //remove whitespaces,backslashes and signs like %
+        $like = '%'.addcslashes(trim($term), '\\%_').'%';
+
+        return $query->where(function ($q) use ($like) {
+            $q->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.en')) COLLATE utf8mb4_unicode_ci LIKE ?", [$like])
+            ->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.ar')) COLLATE utf8mb4_unicode_ci LIKE ?", [$like])
+            ->orWhere('sku', 'like', $like);
+        });
     }
 
     protected static function booted(): void

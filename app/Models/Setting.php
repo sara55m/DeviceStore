@@ -9,7 +9,7 @@ class Setting extends Model
 {
     protected $fillable = ['key','value'];
 
-    protected $casts=['value'=>'array'];
+    protected $casts=['value'=>'json'];
 
     /** All settings of one group, keyed without the prefix: about.title becomes ['title' => ...] */
     public static function forGroup(string $group): array
@@ -29,7 +29,7 @@ class Setting extends Model
     public static function localized(mixed $value): ?string
     {
         return is_array($value)
-            ? ($value[app()->getLocale()] ?? $value['en'] ?? null)
+            ? ($value[app()->getLocale()] ?? $value[config('app.fallback_locale')] ?? null)
             : $value;
     }
 }

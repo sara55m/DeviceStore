@@ -128,7 +128,9 @@ class ProductController extends Controller
                 'full_path' => Storage::disk('public')->path($path),
                 'exists' => Storage::disk('public')->exists($path),
                 'is_symlink' => is_link(public_path('storage')),
-                'link_target' => readlink(public_path('storage')) ?: null,
+                'link_target' => is_link(public_path('storage'))
+                    ? readlink(public_path('storage'))
+                    : null,
             ]);
             $product->images()->create([
                 'path' => $path,
